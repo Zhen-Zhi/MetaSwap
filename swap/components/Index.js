@@ -39,7 +39,7 @@ const Index = () => {
     <div className={style.wrapper}>
       <div className={style.content}>
         <div className={style.formHeader}>
-          <div>Swap</div>
+          <div>Send</div>
           <div><RiSettings3Fill /></div>
         </div>
       

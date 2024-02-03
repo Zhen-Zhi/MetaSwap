@@ -7,7 +7,7 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { AiOutlineDown } from 'react-icons/ai'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import ethLogo from '../assets/eth.png'
-import uniswapLogo from '../assets/uniswap.png'
+import logo from '../assets/logo.png'
 import { TransactionContext } from '../context/TransactionContext';
 
 const style = {
@@ -42,7 +42,7 @@ const Header = () => {
     <div className={style.wrapper}>
       <div className={style.headerLogo}>
         <Image 
-          src={uniswapLogo}
+          src={logo}
           alt="uniswap"
           height={40}
           width={40}
@@ -55,7 +55,7 @@ const Header = () => {
             onClick={() => setSelectedNav('swap')}
             className={`${style.navItem} ${selectedNav === 'swap' && style.activeNavItem}`}
           >
-            Swap
+            Send
           </div>
 
           <div

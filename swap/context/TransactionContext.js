@@ -61,6 +61,38 @@ export const TransactionProvider = ({children}) => {
         }
     }
 
+    const saveTransaction = async (
+        txHash,
+        amount,
+        fromAddress = currentAccount,
+        toAddress
+    ) => {
+        const txDoc = {
+            _type: 'transactions',
+            _id: txHash,
+            fromAddress: fromAddress,
+            toAddress: toAddress,
+            timeStamp: new Date(Date.now()).toISOString(),
+            txHash: txHash,
+            amount: parseFloat(amount)
+        }
+
+        await client.create(txDoc)
+        await client
+            .patch(currentAccount)
+            .setIfMissing({ transactions: [] })
+            .insert('after', 'transactions[-1]', [
+                {
+                    _key: txHash,
+                    _ref: txHash,
+                    _type: 'reference',
+                },
+            ])
+            .commit()
+
+        return
+    }
+
     const sendTransaction = async (
         metamask = eth,
         connectedAccount = currentAccount
@@ -96,12 +128,12 @@ export const TransactionProvider = ({children}) => {
 
             await transactionHash.wait()
 
-            // await saveTransaction(
-            //     transactionHash,
-            //     amount,
-            //     connectedAccount,
-            //     addressTo
-            // )
+            await saveTransaction(
+                transactionHash,
+                amount,
+                connectedAccount,
+                addressTo
+            )
 
             setIsLoading(false)
         }  catch (error) {

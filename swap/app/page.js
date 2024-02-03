@@ -11,7 +11,8 @@ export default function Home() {
     <main className={style.wrapper}>
       <Header />
       <Index />
-      <h2>Transaction history</h2>
+      <h2> </h2>
+      <h2> </h2>
     </main>
   );
 }
